@@ -1,0 +1,43 @@
+.sidebar {
+  width: 250px;
+  background-color: #555; /* Lighter than #333 */
+  color: white;
+  height: 100vh;
+  padding: 20px;
+}
+
+  
+  .profile {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .profile h3 {
+    margin: 10px 0 5px;
+  }
+  
+  .profile p {
+    font-size: 0.9rem;
+  }
+  
+  .menu {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .menu li {
+    margin: 20px 0;
+    cursor: pointer;
+  }
+  
+  .menu li:hover {
+    background-color: #444;
+    padding-left: 10px;
+  }
+  
