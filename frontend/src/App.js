@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import FacebookAuth from './components/FacebookAuth';
 import Dashboard from './pages/Dashboard';
-import ProfilePage from './pages/ProfilePage';
+import ProfileDetails from './components/ProfileDetalis'; // Fixed import typo here
 import axios from 'axios';
 
 const App = () => {
   const [profile, setProfile] = useState(null);
 
-
-  useEffect(()=>{
-    fetchProfile()
-  },[])
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
   const handleLogin = (userProfile) => {
     sessionStorage.setItem('accessToken', userProfile.accessToken);
@@ -25,7 +24,6 @@ const App = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log(response.data[0])
       setProfile(response.data[0]);
     } catch (error) {
       console.log('Error fetching profile:', error);
@@ -36,8 +34,10 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<FacebookAuth onLogin={handleLogin} />} />
-        <Route path="/dashboard" element={<Dashboard profile={profile} />} />
-        <Route path="/profile" element={<ProfilePage profile={profile} />} />
+        <Route path="/dashboard" element={<Dashboard profile={profile} />}>
+          {/* Pass profile as prop to ProfileDetails */}
+          <Route path="profile/details" element={<ProfileDetails profile={profile} />} />
+        </Route>
       </Routes>
     </Router>
   );

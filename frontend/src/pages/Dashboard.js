@@ -1,28 +1,38 @@
-import React, { useState } from 'react';
-import Sidebar from '../components/Sidebar';
+import React from "react";
+import { Outlet, Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import '../assets/Dashboard.css';
 
 const Dashboard = ({ profile }) => {
-  const [showProfile, setShowProfile] = useState(false);
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
-  const handleShowProfile = () => {
-    setShowProfile(!showProfile);
+  const handleLogout = async () => {
+    try {
+      await axios.get('http://localhost:8000/logout'); // Adjust URL based on your server
+      sessionStorage.removeItem('accessToken'); // Clear the token from session storage
+      navigate('/'); // Redirect to homepage or login page
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
-  if (!profile) {
-    return <div>Loading profile...</div>;  // Handle loading state
-  }
-
   return (
-    <div className="dashboard-container">
-      <Sidebar onShowProfile={handleShowProfile} />
-      <div className="main-content">
-        <div className="profile-details">
-          <h1>Profile Details</h1>
-          <img src={profile.picture || profile.photo} alt="Profile" className="profile-image" />
-          <h3>{profile.displayName || profile.name}</h3>
-          <p>Email: {profile.email}</p>
-        </div>
+    <div className="dashboard">
+      <div className="sidebar">
+        <ul className="list-group">
+          <li className="list-group-item">
+            <Link to="profile/details">Profile Details</Link>
+          </li>
+          <li className="list-group-item">
+            <Link to="">Setting</Link>
+          </li>
+          <li className="list-group-item">
+            <Link to="#" onClick={handleLogout}>Logout</Link> {/* Logout link */}
+          </li>
+        </ul>
+      </div>
+      <div className="content">
+        <Outlet />
       </div>
     </div>
   );

@@ -22,4 +22,13 @@ router.get('/users', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+router.get('/logout', (req, res) => {
+    req.logout(err => {
+        if (err) {
+            return res.status(500).json({ message: 'Logout failed' });
+        }
+        res.redirect('http://localhost:3000/'); // Redirect to the homepage or login page
+    });
+});
 module.exports = router;
