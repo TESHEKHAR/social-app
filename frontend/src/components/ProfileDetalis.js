@@ -33,7 +33,7 @@ const ProfileDetails = ({ profile }) => {
     try {
       const response = await axios.get('http://localhost:8000/facebook/timeline', {
         headers: {
-          'Authorization': 'Bearer EAAMmHmMQseIBO9A0RsUGkrLHM2XAJC4qAzvvoy7I6gSXCM5PAbe6Imv8cYMdb88lKjlt4P31TQCESNzj6GGJXfEZCzMJll5cxfMmM2RJh4pQEhuSpFl9CPILYprEXOjOD2RGKvrAFd9XPFdogev0QjwsBKYEPlto1DrjiPy2AzNCQ1SvVGdYmcXTh9MG0jauvwnS16xatY6HiHMTFmWsbVPi2UxhD1SlZBOiZAJZCXLovM2c0oZAfDxk8KtrgfioLDVJOT3pom6Tc'
+          'Authorization': 'Bearer EAAMmHmMQseIBO0lBwF90MXzuqgEjsgP1sqHKk652MTg2sIykCsUZByclCzuG3ZCQAbzQsZC9hiEjrbpfAYZBiducYBQAqObqO999I8HiATZAZBU4LZBUrNVZBdWmJB7tQ9ZBZCMRtU4nizweS1Y4uaYLr0jMSZBmLFzMhtysR4cDuVUoPUKwSu8sSHIwIzflZBVTsofRTeJMn13ZBFBBjxhhcfOYNUmILmt06vydR6AZDZD'
         }
       });
 
@@ -58,6 +58,11 @@ const ProfileDetails = ({ profile }) => {
           <button onClick={handleSavePosts} disabled={loading}>
             {loading ? 'Saving...' : 'Save Facebook Posts'}
           </button>
+          <a href={`https://www.facebook.com/friends/list?id=${profile._id}`} target="_blank" rel="noopener noreferrer">
+            <button style={{ marginLeft: '10px' }}>
+              Get Friends List
+            </button>
+          </a>
           {message && <p>{message}</p>} {/* Display the message */}
         </div>
       ) : (
