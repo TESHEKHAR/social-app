@@ -24,6 +24,9 @@ const Dashboard = ({ profile }) => {
             <Link to="profile/details">Profile Details</Link>
           </li>
           <li className="list-group-item">
+            <Link to="posts">Posts</Link>
+          </li>
+          <li className="list-group-item">
             <Link to="">Setting</Link>
           </li>
           <li className="list-group-item">

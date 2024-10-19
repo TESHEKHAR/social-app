@@ -4,6 +4,7 @@ import FacebookAuth from './components/FacebookAuth';
 import Dashboard from './pages/Dashboard';
 import ProfileDetails from './components/ProfileDetalis'; // Fixed import typo here
 import axios from 'axios';
+import Post from './components/post'; 
 
 const App = () => {
   const [profile, setProfile] = useState(null);
@@ -37,6 +38,8 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard profile={profile} />}>
           {/* Pass profile as prop to ProfileDetails */}
           <Route path="profile/details" element={<ProfileDetails profile={profile} />} />
+          <Route path="posts" element={<Post />} /> 
+
         </Route>
       </Routes>
     </Router>
