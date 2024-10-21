@@ -4,13 +4,14 @@ exports.createFriend = async (req, res) => {
     try {
         console.log('Request Body:', req.body);
 
-        const { facebookId, friends } = req.body;
+        const { facebookId, friends ,profileId} = req.body;
         if (!Array.isArray(friends)) {
             return res.status(400).json({ message: 'Friends must be an array' });
         }
         const newFriendRecord = new Friends({
             facebookId: facebookId || null,
             friends,
+            profileId, 
         });
         await newFriendRecord.save();
 
