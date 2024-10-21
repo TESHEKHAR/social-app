@@ -7,6 +7,7 @@ const FriendsSchema = new mongoose.Schema({
             name: String,
             imageUrl: String,
             mutualFriends: String,
+            profileLink: String,
             createAt: { type: Date, default: Date.now },
         }
     ],
