@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const FriendsSchema = new mongoose.Schema({
     facebookId: { type: String, required: false },
-    profileId: { type: String, required: true },
+    profileId: { type: String, unique: true, required: true },
     friends: [
         {
             name: String,

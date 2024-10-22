@@ -8,6 +8,17 @@ exports.createFriend = async (req, res) => {
         if (!Array.isArray(friends)) {
             return res.status(400).json({ message: 'Friends must be an array' });
         }
+
+        const existingFriend = await Friends.findOne({
+            $or: [
+                { profileId: profileId || null}
+            ]
+        });
+
+        if (existingFriend) {
+            return res.status(409).json({ message: 'Friend record already exists' });
+        }
+
         const newFriendRecord = new Friends({
             facebookId: facebookId || null,
             friends,
