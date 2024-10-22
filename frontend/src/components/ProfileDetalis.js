@@ -28,7 +28,7 @@ const ProfileDetails = ({ profile }) => {
 
   const handleSavePosts = async () => {
     setLoading(true);
-    setMessage(""); // Reset the message
+    setMessage("");
 
     try {
       const response = await axios.get('http://localhost:8000/facebook/timeline', {
@@ -38,13 +38,13 @@ const ProfileDetails = ({ profile }) => {
       });
 
       if (response.data.message) {
-        setMessage(response.data.message); // Set the success message
+        setMessage(response.data.message);
       }
     } catch (error) {
       console.error("Error saving posts:", error);
-      setMessage("Failed to save posts."); // Set the error message
+      setMessage("Failed to save posts."); 
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
@@ -63,7 +63,7 @@ const ProfileDetails = ({ profile }) => {
               Get Friends List
             </button>
           </a>
-          {message && <p>{message}</p>} {/* Display the message */}
+          {message && <p>{message}</p>}
         </div>
       ) : (
         <p>Loading profile details...</p>

@@ -4,13 +4,13 @@ import axios from 'axios';
 import '../assets/Dashboard.css';
 
 const Dashboard = ({ profile }) => {
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const navigate = useNavigate(); 
 
   const handleLogout = async () => {
     try {
-      await axios.get('http://localhost:8000/logout'); // Adjust URL based on your server
-      sessionStorage.removeItem('accessToken'); // Clear the token from session storage
-      navigate('/'); // Redirect to homepage or login page
+      await axios.get('http://localhost:8000/logout');
+      sessionStorage.removeItem('accessToken'); 
+      navigate('/');
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -33,7 +33,7 @@ const Dashboard = ({ profile }) => {
             <Link to="">Setting</Link>
           </li>
           <li className="list-group-item">
-            <Link to="#" onClick={handleLogout}>Logout</Link> {/* Logout link */}
+            <Link to="#" onClick={handleLogout}>Logout</Link>
           </li>
         </ul>
       </div>
