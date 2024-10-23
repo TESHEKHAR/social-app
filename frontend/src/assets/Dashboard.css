@@ -1,35 +1,35 @@
 .dashboard {
-  display: flex; /* Enables flexbox layout */
-  height: 100vh; /* Full height of the viewport */
+  display: flex;
+  height: 100vh;
 
   .sidebar {
-    width: 200px; /* Fixed width for the sidebar */
-    background-color: #0a10c5; /* Dark blue background for the sidebar */
-    padding: 20px; /* Space around the sidebar content */
-    height: 100%; /* Full height of the viewport */
+    width: 200px;
+    background-color: #0a10c5;
+    padding: 20px;
+    height: 100%;
     display: flex;
-    flex-direction: column; /* Aligns children vertically */
-    justify-content: flex-start; /* Aligns children to the top */
+    flex-direction: column;
+    justify-content: flex-start;
 
     .list-group {
-      list-style: none; /* Remove default list styling */
-      padding: 0; /* Remove default padding */
-      margin: 0; /* Remove default margin */
+      list-style: none;
+      padding: 0;
+      margin: 0;
 
       .list-group-item {
-        margin-bottom: 10px; /* Space between items */
+        margin-bottom: 10px;
         font-size: 16px;
 
         a {
-          color: #fff; /* White text color for links */
-          text-decoration: none; /* Remove underline from links */
-          display: block; /* Makes the link cover the entire area */
-          padding: 8px; /* Padding around the links */
-          transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+          color: #fff;
+          text-decoration: none;
+          display: block;
+          padding: 8px;
+          transition: background-color 0.3s, color 0.3s;
 
           &:hover {
-            background-color: #ddd; /* Light background on hover */
-            color: #007bff; /* Blue text color on hover */
+            background-color: #ddd;
+            color: #007bff;
           }
         }
       }
@@ -37,8 +37,8 @@
   }
 
   .content {
-    padding: 20px; /* Space around the content */
-    flex-grow: 1; /* Allow content to fill the remaining space */
-    background-color: #fff; /* White background for content */
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #fff;
   }
 }

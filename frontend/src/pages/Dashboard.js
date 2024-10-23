@@ -1,19 +1,13 @@
 import React from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import { Outlet, Link } from "react-router-dom";
 import '../assets/Dashboard.css';
+import { removeToken } from "../Utility/tokenUtils";
 
 const Dashboard = ({ profile }) => {
-  const navigate = useNavigate(); 
 
   const handleLogout = async () => {
-    try {
-      await axios.get('http://localhost:8000/logout');
-      sessionStorage.removeItem('accessToken'); 
-      navigate('/');
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
+    removeToken()
+    window.location.href = "http://localhost:3000/"
   };
 
   return (
@@ -27,7 +21,7 @@ const Dashboard = ({ profile }) => {
             <Link to="posts">Posts</Link>
           </li>
           <li className="list-group-item">
-            <Link to="">Friends</Link>
+            <Link to="friends">Friends</Link>
           </li>
           <li className="list-group-item">
             <Link to="">Setting</Link>

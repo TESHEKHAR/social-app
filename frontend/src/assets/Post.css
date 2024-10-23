@@ -33,13 +33,12 @@
   
   .post-content {
     padding: 15px;
-    flex: 1; /* Allows content area to grow while keeping it balanced */
+    flex: 1; 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
   
-  /* Limit the height of the message content */
   .post-content h3 {
     font-size: 18px;
     margin-bottom: 10px;
@@ -49,13 +48,11 @@
     white-space: nowrap;
   }
   
-  /* Optional for limiting other texts like "From" and "Shares" */
   .post-content p {
     font-size: 14px;
     margin-bottom: 5px;
   }
   
-  /* Add ellipsis for long text */
   .post-content h3,
   .post-content p {
     white-space: nowrap;

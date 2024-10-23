@@ -2,6 +2,7 @@ const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const User = require('../models/userModel');
 const config = require('./config');
+const { generateToken } = require("./jwtUtils");
 
 passport.use(new FacebookStrategy({
     clientID: config.facebookAuth.clientID,
@@ -17,7 +18,7 @@ passport.use(new FacebookStrategy({
                 displayName: profile.displayName,
                 email: profile.emails ? profile.emails[0].value : null,
                 photo: profile.photos ? profile.photos[0].value : null,
-                accessToken: accessToken,
+                accessToken,
                 refreshToken: refreshToken || '',
             });
             await user.save();
@@ -26,10 +27,12 @@ passport.use(new FacebookStrategy({
             user.refreshToken = refreshToken || user.refreshToken; 
             await user.save();
         }
-        return done(null, user);
+        const token = generateToken(user);
+        return done(null, { user, token });
     } catch (err) {
         return done(err, null);
     }
 }));
+
 
 module.exports = passport;

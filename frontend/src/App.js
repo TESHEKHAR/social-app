@@ -1,45 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState ,useEffect} from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import FacebookAuth from './components/FacebookAuth';
 import Dashboard from './pages/Dashboard';
-import ProfileDetails from './components/ProfileDetalis'; // Fixed import typo here
-import axios from 'axios';
+import ProfileDetails from './components/ProfileDetalis';
 import Post from './components/post'; 
+import FriendsList from './components/FriendsList';
+import ProtectedRoute from './components/ProtectedRoute';
+import { decodeToken } from './Utility/tokenUtils';
 
 const App = () => {
   const [profile, setProfile] = useState(null);
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
-
-  const handleLogin = (userProfile) => {
-    sessionStorage.setItem('accessToken', userProfile.accessToken);
-    fetchProfile(userProfile.accessToken); // Fetch profile after login
-  };
-
-  const fetchProfile = async (token) => {
-    try {
-      const response = await axios.get('http://localhost:8000/users', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setProfile(response.data[0]);
-    } catch (error) {
-      console.log('Error fetching profile:', error);
-    }
-  };
+  const token = localStorage.getItem('Token');
+    useEffect(() => {
+      if (token) {
+        const User = decodeToken(token);
+        if (User) {
+          setProfile(User); 
+        }
+      }
+    }, [token]);
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<FacebookAuth onLogin={handleLogin} />} />
-        <Route path="/dashboard" element={<Dashboard profile={profile} />}>
-          {/* Pass profile as prop to ProfileDetails */}
-          <Route path="profile/details" element={<ProfileDetails profile={profile} />} />
-          <Route path="posts" element={<Post />} /> 
-
+        <Route path="/" element={!token ? <FacebookAuth />:<Navigate to="/dashboard" replace /> } />
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard profile={profile} />
+          </ProtectedRoute>
+        }>
+          <Route path="profile/details" element={
+            <ProtectedRoute>
+              <ProfileDetails profile={profile} />
+            </ProtectedRoute>
+          } />
+          <Route path="posts" element={
+            <ProtectedRoute>
+              <Post />
+            </ProtectedRoute>
+          } /> 
+          <Route path="friends" element={
+            <ProtectedRoute>
+              <FriendsList />
+            </ProtectedRoute>
+          } />
         </Route>
       </Routes>
     </Router>
