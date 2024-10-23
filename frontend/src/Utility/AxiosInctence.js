@@ -16,3 +16,14 @@ export const GetUserProfile = async (id) => {
         throw error;
     }
 };
+
+
+export const GetUserFriends = async (profileId) => {
+    try {
+        const response = await axiosInstance.get(`/friends/${profileId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching friends list:",error);
+        throw error;
+    }
+}
