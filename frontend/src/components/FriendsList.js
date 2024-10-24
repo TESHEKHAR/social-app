@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { GetUserFriends } from '../Utility/AxiosInctence';
 import { decodeToken, getToken } from '../Utility/tokenUtils';
 import '../assets/FriendsList.css'; 
@@ -36,7 +36,8 @@ const FriendsList = () => {
       setLoading(false);
     }
   };
-  const handleInfiniteScroll = () => {
+  
+  const handleInfiniteScroll = useCallback(() => {
     if (
       window.innerHeight + document.documentElement.scrollTop + 1 >=
       document.documentElement.scrollHeight
@@ -45,21 +46,22 @@ const FriendsList = () => {
         setPage((prevPage) => prevPage + 1);
       }
     }
-  };
+  }, [hasMore, loading]); 
+
   useEffect(() => {
     if (hasMore) {
       fetchFriends(page);
     }
-  }, [page]);
+  }, [page, hasMore]); 
 
   useEffect(() => {
     window.addEventListener('scroll', handleInfiniteScroll);
     return () => window.removeEventListener('scroll', handleInfiniteScroll);
-  }, [hasMore, loading]);
-
+  }, [handleInfiniteScroll]); 
   if (loading && page === 1) {
     return <p>Loading friends list...</p>;
   }
+  
   if (error) {
     return <p>{error}</p>;
   }
@@ -70,13 +72,16 @@ const FriendsList = () => {
       <div className="friends-container">
         {friends.map((friend) => (
           <div className="friend-card" key={friend._id}>
-            <a href={friend.profileLink} target="_blank" rel="noopener noreferrer">
+            <div className="friend-image-container">
               <img src={friend.imageUrl} alt={friend.name} className="friend-image" />
-              <div className="friend-info">
-                <h3>{friend.name}</h3>
-                <p>Mutual Friends: {friend.mutualFriends}</p>
-              </div>
+            </div>
+            <div className="friend-info">
+            <a href={friend.profileLink} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h3>{friend.name}</h3>
             </a>
+              <p>{friend.mutualFriends} Mutual Friends</p>
+
+            </div>
           </div>
         ))}
       </div>

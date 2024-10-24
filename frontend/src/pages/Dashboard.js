@@ -13,6 +13,7 @@ const Dashboard = ({ profile }) => {
   return (
     <div className="dashboard">
       <div className="sidebar">
+      <h1 className="logo">Social App</h1>
         <ul className="list-group">
           <li className="list-group-item">
             <Link to="profile/details">Profile Details</Link>
@@ -22,9 +23,6 @@ const Dashboard = ({ profile }) => {
           </li>
           <li className="list-group-item">
             <Link to="friends">Friends</Link>
-          </li>
-          <li className="list-group-item">
-            <Link to="">Setting</Link>
           </li>
           <li className="list-group-item">
             <Link to="#" onClick={handleLogout}>Logout</Link>

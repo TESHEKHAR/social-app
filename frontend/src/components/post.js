@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../assets/Post.css';
+import placeholderImage from '../assets/no_image_placeholder.png'; 
 
 function Post() {
   const [posts, setPosts] = useState([]);
@@ -40,7 +41,11 @@ function Post() {
         <div className="post-grid">
           {posts.map(post => (
             <div key={post.facebookId} className="post-card">
-              <img src={post.picture} alt="Post" className="post-image" />
+              <img
+                src={post.picture ? post.picture : placeholderImage}
+                alt="Post"
+                className="post-image"
+              />
               <div className="post-content">
                 <h3>{post.message}</h3>
                 <p><strong>From:</strong> {post.from}</p>
@@ -52,7 +57,6 @@ function Post() {
       )}
     </div>
   );
-  
 }
 
 export default Post;

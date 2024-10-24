@@ -4,7 +4,7 @@
 
   .sidebar {
     width: 200px;
-    background-color: #0a10c5;
+    background-color: #ffffff; 
     padding: 20px;
     height: 100%;
     display: flex;
@@ -21,7 +21,7 @@
         font-size: 16px;
 
         a {
-          color: #fff;
+          color: #000; 
           text-decoration: none;
           display: block;
           padding: 8px;
@@ -29,7 +29,7 @@
 
           &:hover {
             background-color: #ddd;
-            color: #007bff;
+            color: #007bff; 
           }
         }
       }
@@ -39,6 +39,19 @@
   .content {
     padding: 20px;
     flex-grow: 1;
-    background-color: #fff;
+    background-color: #f0f2f5;
   }
+  
+  .logo {
+    color: #0a10c5; 
+    font-size: 24px; 
+    margin-bottom: 20px; 
+    margin-left: 8px;
+  }
+  .active-link {
+    background-color: #007bff; 
+    color: #fff; 
+  }
+  
+  
 }
