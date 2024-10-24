@@ -27,30 +27,68 @@ exports.createFriend = async (req, res) => {
         res.status(500).json({ message: 'Error creating or updating friends', error: error.message });
     }
 };
+// exports.getFriends = async (req, res) => {
+//     try {
+//         const { profileId } = req.params;
+
+//         if (!profileId) {
+//             return res.status(400).json({
+//                 message: 'Profile ID is required' 
+//             });
+//         }
+//         const friendRecord = await Friends.findOne({ profileId });
+
+//         if (!friendRecord) {
+//             return res.status(404).json({ 
+//                 message: 'No friends found for this profile'
+//             });
+//         }
+
+//         return res.status(200).json({
+//             friends: friendRecord.friends 
+//         });
+
+//     } catch (error) {
+//         console.error('Error retrieving friends:', error);
+//         res.status(500).json({ message: 'Error retrieving friends', error: error.message });
+//     }
+// };
+
 exports.getFriends = async (req, res) => {
     try {
-        const { profileId } = req.params;
-
-        if (!profileId) {
-            return res.status(400).json({
-                message: 'Profile ID is required' 
-            });
-        }
-        const friendRecord = await Friends.findOne({ profileId });
-
-        if (!friendRecord) {
-            return res.status(404).json({ 
-                message: 'No friends found for this profile'
-            });
-        }
-
-        return res.status(200).json({
-            friends: friendRecord.friends 
+      const { profileId } = req.params;
+      const { page = 1, limit = 8 } = req.query;
+  
+      if (!profileId) {
+        return res.status(400).json({
+          message: 'Profile ID is required',
         });
-
+      }
+  
+      const friendRecord = await Friends.findOne({ profileId });
+  
+      if (!friendRecord) {
+        return res.status(404).json({
+          message: 'No friends found for this profile',
+        });
+      }
+      const startIndex = (page - 1) * limit;
+      const paginatedFriends = friendRecord.friends.slice(
+        startIndex,
+        startIndex + parseInt(limit)
+      );
+  
+      return res.status(200).json({
+        friends: paginatedFriends,
+        totalFriends: friendRecord.friends.length,
+        currentPage: parseInt(page),
+        totalPages: Math.ceil(friendRecord.friends.length / limit),
+      });
     } catch (error) {
-        console.error('Error retrieving friends:', error);
-        res.status(500).json({ message: 'Error retrieving friends', error: error.message });
+      console.error('Error retrieving friends:', error);
+      res.status(500).json({ message: 'Error retrieving friends', error: error.message });
     }
-};
+  };
+  
+
 
